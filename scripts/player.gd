@@ -5,7 +5,7 @@ const RELOAD_TIME = 0.1
 var m_speed = 500
 var m_reloading = 0.0
 
-func get_velocity():
+func get_direction():
 	var velocity = Vector2(0, 0)
 	velocity.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	velocity.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
@@ -32,7 +32,7 @@ func _ready():
 
 
 func _process(delta):
-	var movement = m_speed * get_velocity()
+	var movement = m_speed * get_direction()
 	
 	if movement.length() > 0:
 		rotation = movement.angle() + TAU/4
