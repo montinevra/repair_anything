@@ -15,4 +15,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	move_and_collide(m_move_vec * delta * m_speed)
+	var collision = move_and_collide(m_move_vec * delta * m_speed)
+	
+	#if collision:
+		
