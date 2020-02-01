@@ -1,12 +1,9 @@
 extends KinematicBody2D
 
-
 const BULLET = preload("res://scenes/bullet.tscn")
-#onready var m_player = get_node("player")
-#onready var m_bullet = get_node("bullet")
+const RELOAD_TIME = 0.1
 var m_speed = 500
-#var m_bullet_speed = 700
-#var m_bullet_movement = Vector2(0, 0)
+var m_reloading = 0.0
 
 func get_velocity():
 	var velocity = Vector2(0, 0)
@@ -23,7 +20,6 @@ func shoot(t_angle):
 	var move_direction = t_angle - TAU/4
 	var move_vector = Vector2(cos(move_direction), sin(move_direction))
 	
-	#bullet.global_position = global_position
 	bullet.m_move_vec = move_vector
 	bullet.position = position + move_vector * 100
 	bullet.rotation = t_angle
@@ -31,20 +27,17 @@ func shoot(t_angle):
 	bullet.show()
 	return move_vector
 
-	
 func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var movement = m_speed * get_velocity()
+	
 	if movement.length() > 0:
 		rotation = movement.angle() + TAU/4
-
 	move_and_slide(movement)
-
-	if Input.is_action_just_pressed("shoot"):
+	m_reloading -= delta
+	if Input.is_action_just_pressed("shoot") && m_reloading <= 0:
+		m_reloading = RELOAD_TIME
 		shoot(rotation)
-	#print(m_player.move_and_collide(movement * delta))
-	pass
