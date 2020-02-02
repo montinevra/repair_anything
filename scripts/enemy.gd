@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-enum {ACCELERATE, DECELERATE, CRUISE}
+onready var m_raycast = get_node("RayCast2D")
+enum {ACCELERATE, DECELERATE, CRUISE, CHASE}
 var m_state = ACCELERATE
 var m_cruise_time = 0
 var m_speed = 500
@@ -8,26 +9,41 @@ var m_acceleration = .01
 var m_repairness = 0
 var m_direction = Vector2(0.0, 0.0)
 var m_target_dir = Vector2(0.0, 0.0)
+var m_last_pos = Vector2(0, 0)
 
 
 func get_new_target_dir():
+#	if randf() >= .5:
 	m_target_dir = Vector2(randf() * 2 - 1, randf() * 2 - 1).normalized()
-
-	print(m_target_dir)
+#	else:
+#		var angle_to = position.angle_to($"../Player".position)
+#		m_target_dir = Vector2(cos(angle_to), sin(angle_to))
+		
+#	print(m_target_dir)
 	return m_target_dir
 
 
 func _ready():
 	randomize()
+	m_last_pos = position
 	get_new_target_dir()
 	pass # Replace with function body.
 
 
 func _process(delta):
 	var velocity = m_speed * m_direction
-
-	move_and_slide(velocity)
+	var slide_velocity = move_and_slide(velocity)
+	
+	if get_slide_count():
+		m_direction = Vector2(0, 0) # Vector2(cos(slide_velocity.x), sin(slide_velocity.y))
+		get_new_target_dir()
+#	if m_last_pos == position:
+#		m_direction = Vector2(0, 0)
+#		get_new_target_dir()
+#	m_last_pos = position
 	match m_state:
+#		CHASE:
+#			position.move_toward($"../Player".position, delta * m_speed)
 		ACCELERATE:
 			if m_direction.length() <= m_target_dir.length():
 				m_direction += m_target_dir * m_acceleration
@@ -43,6 +59,9 @@ func _process(delta):
 			if  m_direction.length() >= 0.01:
 				m_direction *= .9
 			else:
+#				if randf() > .5:
+#					m_state = CHASE
+#				else:
 				get_new_target_dir()
 				m_state = ACCELERATE
 #	if m_direction.x > m_target_dir.x:

@@ -19,3 +19,5 @@ polygon = PoolVector2Array( 7.04202, -30.1885, 44.1053, -55.0599, 15.3325, -23.8
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
