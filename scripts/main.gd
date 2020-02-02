@@ -1,9 +1,10 @@
 extends Node2D
 
 enum {STORE_FRONT, STORE_BACK}
+onready var m_store_front_inst = get_node("StoreFront")
 var m_room = STORE_FRONT
 var m_store_back = preload("res://scenes/store_back.tscn")
-var m_store_back_inst
+var m_store_back_inst = m_store_back.instance()
 var m_score = 0
 onready var m_score_label = get_node("Score/Label")
 
@@ -20,10 +21,24 @@ func add_score(t_add):
 func reset_score():
 	set_score(0)
 
-# Called when the node enters the scene tree for the first time.
+
+func go_back():
+	m_room = STORE_BACK
+	print("accepted")
+	m_store_back_inst = m_store_back.instance()
+	add_child(m_store_back_inst)
+
+
+func go_front():
+	m_store_back_inst.queue_free()
+	m_room = STORE_FRONT
+
+
 func _ready():
 	reset_score()
-	pass # Replace with function body.
+	m_store_back_inst.connect("sig_go_front", self, "go_front")
+	m_store_front_inst.connect("sig_go_back", self, "go_back")
+
 
 func _process(t_delta):
 	match m_room:

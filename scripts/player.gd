@@ -1,11 +1,13 @@
 extends KinematicBody2D
 
+enum {TOOL_SELECT, REPAIRING, REPAIRED, BORKED, FINISHED}
 const BULLET = preload("res://scenes/bullet.tscn")
 const RELOAD_TIME = 0.1
 var m_speed = 500
 var m_reloading = 0.0
 var m_invulnerable = .5
 onready var m_main = get_node("../../")
+var m_state = REPAIRING
 
 func get_direction():
 	var velocity = Vector2(0, 0)
@@ -16,6 +18,11 @@ func get_direction():
 		velocity = velocity.normalized()
 	#print(velocity)
 	return velocity
+
+
+func set_finished():
+	m_state = FINISHED
+
 
 func shoot(t_angle):
 	var bullet = BULLET.instance()
@@ -34,27 +41,28 @@ func _ready():
 
 
 func _process(delta):
-	var velocity = m_speed * get_direction()
+	if m_state == REPAIRING:
+		var velocity = m_speed * get_direction()
+		
+		if velocity.length() > 0:
+			rotation = velocity.angle() + TAU/4
+		move_and_slide(velocity)
+		m_reloading -= delta
+		if Input.is_action_just_pressed("shoot") && m_reloading <= 0:
+			m_reloading = RELOAD_TIME
+			shoot(rotation)
+		m_invulnerable -= delta
+		for i in get_slide_count():
+			var collision = get_slide_collision(i)
+	#		print("Collided with: ", collision.collider.name)
+			if collision:
+				var collider = collision.get_collider()
+				velocity = velocity.bounce(collision.normal)
+				if collider.name == "Enemy" && m_invulnerable <= 0:
+					collider.add_repairedness(-.1)
+					print(collider.m_repairedness)
+					m_invulnerable = .05
+					m_main.add_score(-2)
 	
-	if velocity.length() > 0:
-		rotation = velocity.angle() + TAU/4
-	move_and_slide(velocity)
-	m_reloading -= delta
-	if Input.is_action_just_pressed("shoot") && m_reloading <= 0:
-		m_reloading = RELOAD_TIME
-		shoot(rotation)
-	m_invulnerable -= delta
-	for i in get_slide_count():
-		var collision = get_slide_collision(i)
-#		print("Collided with: ", collision.collider.name)
-		if collision:
-			var collider = collision.get_collider()
-			velocity = velocity.bounce(collision.normal)
-			if collider.name == "Enemy" && m_invulnerable <= 0:
-				collider.add_repairedness(-.1)
-				print(collider.m_repairedness)
-				m_invulnerable = .05
-				m_main.add_score(-2)
-
-
-
+	
+	

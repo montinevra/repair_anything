@@ -13,7 +13,7 @@ var m_is_repaired = false
 signal sig_update_healthbar
 signal sig_fixed
 signal sig_borked
-
+signal sig_finished
 
 func is_repaired():
 	return m_is_repaired
@@ -109,12 +109,16 @@ func _process(delta):
 			else:
 				m_direction = Vector2(0, 0)
 				m_is_repaired = true
+				emit_signal("sig_fixed")
+				emit_signal("sig_finished")
 		BORKED:
 			if  m_direction.length() >= 0.01:
 				m_direction *= .5
 			else:
 				m_direction = Vector2(0, 0)
-	if abs(get_repairedness()) > get_max_repairedness():
+				emit_signal("sig_borked")
+				emit_signal("sig_finished")
+	if get_repairedness() > get_max_repairedness():
 		m_state = FIXED
-	if abs(get_repairedness()) < -get_max_repairedness():
+	if get_repairedness() < -get_max_repairedness():
 		m_state = BORKED

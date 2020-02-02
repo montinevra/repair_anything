@@ -5,6 +5,11 @@ var m_move_vec = Vector2(0, 0)
 var m_movement = Vector2(0, 0)
 onready var m_main = get_node("../../")
 
+
+func set_finished():
+	queue_free()
+
+
 func _ready():
 	pass # Replace with function body.
 
