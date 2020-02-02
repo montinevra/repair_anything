@@ -3,6 +3,7 @@ extends Node2D
 enum {STORE_FRONT, STORE_BACK}
 onready var m_store_front_inst = get_node("StoreFront")
 var m_room = STORE_FRONT
+var m_repairables = []
 var m_store_back = preload("res://scenes/store_back.tscn")
 var m_store_back_inst = m_store_back.instance()
 var m_score = 0
@@ -36,6 +37,7 @@ func go_front():
 
 func _ready():
 	reset_score()
+	
 	m_store_back_inst.connect("sig_go_front", self, "go_front")
 	m_store_front_inst.connect("sig_go_back", self, "go_back")
 
