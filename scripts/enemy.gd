@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-onready var m_raycast = get_node("RayCast2D")
 enum {ACCELERATE, DECELERATE, CRUISE, CHASE, FIXED, BORKED}
 var m_state = ACCELERATE
 var m_cruise_time = 0
@@ -11,6 +10,9 @@ const m_max_repairedness = 1
 var m_direction = Vector2(0.0, 0.0)
 var m_target_dir = Vector2(0.0, 0.0)
 var m_is_repaired = false
+signal sig_update_healthbar
+signal sig_fixed
+signal sig_borked
 
 
 func is_repaired():
@@ -18,6 +20,7 @@ func is_repaired():
 	
 	
 func update_healthbar():
+	emit_signal("sig_update_healthbar", get_repairedness())
 	pass
 
 
@@ -111,8 +114,6 @@ func _process(delta):
 				m_direction *= .5
 			else:
 				m_direction = Vector2(0, 0)
-
-
 	if abs(get_repairedness()) > get_max_repairedness():
 		m_state = FIXED
 	if abs(get_repairedness()) < -get_max_repairedness():

@@ -4,6 +4,7 @@
 [ext_resource path="res://fonts/verdana.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
+size = 24
 font_data = ExtResource( 2 )
 
 [node name="Score" type="Sprite"]
@@ -26,10 +27,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 201.436
-margin_top = 31.1516
-margin_right = 274.436
-margin_bottom = 59.1516
+margin_left = 203.289
+margin_top = 24.6655
+margin_right = 276.289
+margin_bottom = 55.6655
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "-"
