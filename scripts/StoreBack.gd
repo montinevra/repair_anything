@@ -1,5 +1,6 @@
 extends Node2D
 
+enum {REPAIRING, FINISHED}
 onready var m_enemy = get_node("Enemy")
 onready var m_enemy_sprite = get_node("Enemy/EnemySprite")
 onready var m_player = get_node("Player")
@@ -10,13 +11,14 @@ onready var m_dialog = get_node("UI/DialogPopup")
 onready var m_dialog_label = get_node("UI/DialogPopup/Label")
 onready var m_dialog_timer = get_node("UI/DialogPopup/Timer")
 onready var m_dialog_continue = get_node("UI/DialogPopup/Continue")
+var m_state = REPAIRING
 signal sig_finished
 signal sig_go_front
 
 
 func update_healthbar(t_health):
 	m_healthbar.value = t_health
-	print(t_health)
+#	print(t_health)
 
 
 func go_front():
@@ -25,13 +27,13 @@ func go_front():
 
 func on_timer_timeout():
 	m_dialog_continue.show()
-	print("timer timeout")
+	m_state = FINISHED
 	
 	
 func finished():
 	m_player.set_finished()
 	m_dialog.show()
-	m_dialog_timer.start(1.5)
+	m_dialog_timer.start(1.2)
 
 
 func fixed():
@@ -61,7 +63,10 @@ func _ready():
 
 
 func _process(delta):
+#	print(m_dialog_timer.time_left)
 	if m_enemy.is_repaired():
 		pass
 #		m_is_repairing = false
+	if m_state == FINISHED && Input.is_action_just_pressed("ui_accept"):
+		m_is_repairing = false
 

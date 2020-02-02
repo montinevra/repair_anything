@@ -60,7 +60,7 @@ func _process(delta):
 				velocity = velocity.bounce(collision.normal)
 				if collider.name == "Enemy" && m_invulnerable <= 0:
 					collider.add_repairedness(-.1)
-					print(collider.m_repairedness)
+#					print(collider.m_repairedness)
 					m_invulnerable = .05
 					m_main.add_score(-2)
 	

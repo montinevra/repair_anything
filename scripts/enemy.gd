@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-enum {ACCELERATE, DECELERATE, CRUISE, CHASE, FIXED, BORKED}
+enum {ACCELERATE, DECELERATE, CRUISE, CHASE, FIXED, BORKED, FINISHED}
 var m_state = ACCELERATE
 var m_cruise_time = 0
 var m_speed = 1000
@@ -62,63 +62,69 @@ func _ready():
 
 
 func _process(delta):
-	var velocity = m_speed * m_direction
-	var slide_velocity = move_and_slide(velocity)
-	
-	for i in get_slide_count():
-		var collision = get_slide_collision(i)
-		if collision.collider.name == "Floor":
-#			print("Collided with: ", collision.collider.name)
-			
-#			m_cruise_time = randf() * 1
-#			m_state = CRUISE
-#			m_direction = Vector2(0, 0) # Vector2(cos(slide_velocity.x), sin(slide_velocity.y))
-			m_direction = m_direction.bounce(collision.normal)
-			get_new_target_dir()
-#	if m_last_pos == position:
-#		m_direction = Vector2(0, 0)
-#		get_new_target_dir()
-#	m_last_pos = position
-	match m_state:
-#		CHASE:
-#			position.move_toward($"../Player".position, delta * m_speed)
-		ACCELERATE:
-			if m_direction.length() <= m_target_dir.length():
-				m_direction += m_target_dir * m_acceleration
-			else:
-				m_state = CRUISE
-				m_cruise_time = randf() * 1
-		CRUISE:
-			if m_cruise_time > 0:
-				m_cruise_time -= delta
-			else:
-				m_state = DECELERATE
-		DECELERATE:
-			if  m_direction.length() >= 0.01:
-				m_direction *= .9
-			else:
-				m_direction = Vector2(0, 0)
-#				if randf() > .5:
-#					m_state = CHASE
-#				else:
+	if m_state != FINISHED:
+#		print("not finished")
+#		print(m_state)
+		var velocity = m_speed * m_direction
+		var slide_velocity = move_and_slide(velocity)
+		
+		for i in get_slide_count():
+			var collision = get_slide_collision(i)
+			if collision.collider.name == "Floor":
+	#			print("Collided with: ", collision.collider.name)
+				
+	#			m_cruise_time = randf() * 1
+	#			m_state = CRUISE
+	#			m_direction = Vector2(0, 0) # Vector2(cos(slide_velocity.x), sin(slide_velocity.y))
+				m_direction = m_direction.bounce(collision.normal)
 				get_new_target_dir()
-				m_state = ACCELERATE
-		FIXED:
-			if  m_direction.length() >= 0.01:
-				m_direction *= .5
-			else:
-				m_direction = Vector2(0, 0)
-				m_is_repaired = true
-				emit_signal("sig_fixed")
-				emit_signal("sig_finished")
-		BORKED:
-			if  m_direction.length() >= 0.01:
-				m_direction *= .5
-			else:
-				m_direction = Vector2(0, 0)
-				emit_signal("sig_borked")
-				emit_signal("sig_finished")
-	if get_repairedness() > get_max_repairedness():
-		m_state = FIXED
-	if get_repairedness() < -get_max_repairedness():
-		m_state = BORKED
+	#	if m_last_pos == position:
+	#		m_direction = Vector2(0, 0)
+	#		get_new_target_dir()
+	#	m_last_pos = position
+		if get_repairedness() > get_max_repairedness():
+			m_state = FIXED
+		if get_repairedness() < -get_max_repairedness():
+			m_state = BORKED
+		match m_state:
+	#		CHASE:
+	#			position.move_toward($"../Player".position, delta * m_speed)
+			ACCELERATE:
+				if m_direction.length() <= m_target_dir.length():
+					m_direction += m_target_dir * m_acceleration
+				else:
+					m_state = CRUISE
+					m_cruise_time = randf() * 1
+			CRUISE:
+				if m_cruise_time > 0:
+					m_cruise_time -= delta
+				else:
+					m_state = DECELERATE
+			DECELERATE:
+				if  m_direction.length() >= 0.01:
+					m_direction *= .9
+				else:
+					m_direction = Vector2(0, 0)
+	#				if randf() > .5:
+	#					m_state = CHASE
+	#				else:
+					get_new_target_dir()
+					m_state = ACCELERATE
+			FIXED:
+				if  m_direction.length() >= 0.01:
+					m_direction *= .5
+				else:
+					m_direction = Vector2(0, 0)
+					m_is_repaired = true
+					emit_signal("sig_fixed")
+					emit_signal("sig_finished")
+					m_state = FINISHED
+			BORKED:
+				if  m_direction.length() >= 0.01:
+					m_direction *= .5
+				else:
+					m_direction = Vector2(0, 0)
+					emit_signal("sig_borked")
+					emit_signal("sig_finished")
+					m_state = FINISHED
+

@@ -52,4 +52,5 @@ func _process(t_delta):
 			if !m_store_back_inst.is_repairing():
 				m_store_back_inst.queue_free()
 				m_room = STORE_FRONT
+	pass
 
