@@ -4,7 +4,6 @@
 [ext_resource path="res://scripts/Player.gd" type="Script" id=2]
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 440.384, 389.592 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
