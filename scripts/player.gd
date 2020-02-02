@@ -4,7 +4,8 @@ const BULLET = preload("res://scenes/bullet.tscn")
 const RELOAD_TIME = 0.1
 var m_speed = 500
 var m_reloading = 0.0
-var m_invulnerable = 2
+var m_invulnerable = .5
+onready var m_main = get_node("../../")
 
 func get_direction():
 	var velocity = Vector2(0, 0)
@@ -53,6 +54,7 @@ func _process(delta):
 				collider.add_repairedness(-.1)
 				print(collider.m_repairedness)
 				m_invulnerable = .05
+				m_main.add_score(-2)
 
 
 

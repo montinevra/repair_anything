@@ -1,10 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://graphics/tv_broken.png" type="Texture" id=1]
-[ext_resource path="res://scripts/enemy.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 
 [node name="Enemy" type="KinematicBody2D"]
-position = Vector2( 454.605, 197.516 )
 script = ExtResource( 2 )
 
 [node name="EnemySprite" type="Sprite" parent="."]
@@ -14,10 +13,8 @@ __meta__ = {
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( -6.33978, -1.46302 )
-polygon = PoolVector2Array( 7.04202, -30.1885, 44.1053, -55.0599, 15.3325, -23.8487, 32.4011, -21.898, 51.9081, -27.7501, 55.8095, -2.39104, 55.8095, 31.7462, 50.4451, 57.593, -47.5776, 49.7902, -41.7255, 21.0174, -43.1885, -27.2625, -1.73614, -27.2625, -18.3171, -57.0106 )
+scale = Vector2( 0.94788, 1 )
+polygon = PoolVector2Array( 1.00705, -32.7898, 40.4369, -57.1167, 10.7824, -24.4506, 24.9566, -23.0607, 47.4398, -29.0835, 52.5316, -0.0901146, 52.8162, 30.2178, 46.4623, 56.1621, -59.1111, 47.3596, -50.3134, 22.8051, -51.7246, -30.7161, -10.9246, -27.1339, -26.8161, -60.7656 )
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="RayCast2D" type="RayCast2D" parent="."]

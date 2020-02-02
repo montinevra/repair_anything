@@ -1,21 +1,34 @@
 extends KinematicBody2D
 
 onready var m_raycast = get_node("RayCast2D")
-enum {ACCELERATE, DECELERATE, CRUISE, CHASE}
+enum {ACCELERATE, DECELERATE, CRUISE, CHASE, FIXED, BORKED}
 var m_state = ACCELERATE
 var m_cruise_time = 0
 var m_speed = 1000
-var m_acceleration = .01
+const m_acceleration = .01
 var m_repairedness = 0
+const m_max_repairedness = 1
 var m_direction = Vector2(0.0, 0.0)
 var m_target_dir = Vector2(0.0, 0.0)
-var m_last_pos = Vector2(0, 0)
+var m_is_repaired = false
 
 
+func is_repaired():
+	return m_is_repaired
+	
+	
 func update_healthbar():
 	pass
 
 
+func get_repairedness():
+	return m_repairedness
+	
+	
+func get_max_repairedness():
+	return m_max_repairedness
+	
+	
 func add_repairedness(t_amount):
 	m_repairedness += t_amount
 	update_healthbar()
@@ -34,7 +47,13 @@ func get_new_target_dir():
 
 func _ready():
 	randomize()
-	m_last_pos = position
+	m_state = ACCELERATE
+	m_cruise_time = 0
+	m_speed = 1000
+	m_repairedness = 0
+	m_direction = Vector2(0.0, 0.0)
+	m_target_dir = Vector2(0.0, 0.0)
+#	m_last_pos = position
 	get_new_target_dir()
 	pass # Replace with function body.
 
@@ -81,3 +100,20 @@ func _process(delta):
 #				else:
 				get_new_target_dir()
 				m_state = ACCELERATE
+		FIXED:
+			if  m_direction.length() >= 0.01:
+				m_direction *= .5
+			else:
+				m_direction = Vector2(0, 0)
+				m_is_repaired = true
+		BORKED:
+			if  m_direction.length() >= 0.01:
+				m_direction *= .5
+			else:
+				m_direction = Vector2(0, 0)
+
+
+	if abs(get_repairedness()) > get_max_repairedness():
+		m_state = FIXED
+	if abs(get_repairedness()) < -get_max_repairedness():
+		m_state = BORKED
