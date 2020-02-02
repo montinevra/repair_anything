@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Repair_Anything"
-run/main_scene="res://scenes/store_front.tscn"
+run/main_scene="res://scenes/store_back.tscn"
 config/icon="res://icon.png"
 
 [input]

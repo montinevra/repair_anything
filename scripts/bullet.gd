@@ -11,4 +11,9 @@ func _process(delta):
 	var collision = move_and_collide(m_move_vec * delta * m_speed)
 	
 	if collision:
+		var collider = collision.get_collider()
+		if collider.name == "Enemy":
+			collider.add_repairedness(.1)
+			print(collider.m_repairedness)
+			pass
 		get_parent().remove_child(self)
