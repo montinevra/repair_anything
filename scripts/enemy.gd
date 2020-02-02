@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 enum {ACCELERATE, DECELERATE, CRUISE, CHASE, FIXED, BORKED, FINISHED}
 onready var m_sprite = get_node("EnemySprite")
-var m_fixed_texture = preload("res://graphics/tv_repaired.png")
+var m_fixed_texture = preload("res://graphics/repairables/TvRepaired.png")
 var m_state = ACCELERATE
 var m_cruise_time = 0
 var m_speed = 1000

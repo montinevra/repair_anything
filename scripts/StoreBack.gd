@@ -51,7 +51,7 @@ func is_repairing():
 
 
 func _ready():
-	m_enemy_sprite.set_texture(preload("res://graphics/repairables/tv_broken.png"))
+	m_enemy_sprite.set_texture(preload("res://graphics/repairables/TvBroken.png"))
 	m_dialog_timer.set_wait_time(2)
 	m_dialog_timer.connect("timeout", self, "on_timer_timeout") 
 	m_enemy.connect("sig_update_healthbar", self, "update_healthbar")

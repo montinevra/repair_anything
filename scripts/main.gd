@@ -25,7 +25,7 @@ func reset_score():
 
 func go_back():
 	m_room = STORE_BACK
-	print("accepted")
+#	print("accepted")
 	m_store_back_inst = m_store_back.instance()
 	add_child(m_store_back_inst)
 
@@ -34,10 +34,25 @@ func go_front():
 	m_store_back_inst.queue_free()
 	m_room = STORE_FRONT
 
+func list_files_in_directory(path):
+	var files = []
+	var dir = Directory.new()
+	
+	dir.open(path)
+	dir.list_dir_begin()
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			files.append(file)
+	dir.list_dir_end()
+	return files
+
 
 func _ready():
 	reset_score()
-	
+	m_repairables = list_files_in_directory("res://graphics/repairables/")
 	m_store_back_inst.connect("sig_go_front", self, "go_front")
 	m_store_front_inst.connect("sig_go_back", self, "go_back")
 

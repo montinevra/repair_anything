@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tv.png-2f3d64a04e3f70152180650574602335.stex"
+path="res://.import/TvRepaired.png-a36bda176ea7d21cbb97244c2fa249b4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/repairables/tv.png"
-dest_files=[ "res://.import/tv.png-2f3d64a04e3f70152180650574602335.stex" ]
+source_file="res://graphics/repairables/TvRepaired.png"
+dest_files=[ "res://.import/TvRepaired.png-a36bda176ea7d21cbb97244c2fa249b4.stex" ]
 
 [params]
 
