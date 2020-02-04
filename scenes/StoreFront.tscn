@@ -3,7 +3,7 @@
 [ext_resource path="res://fonts/verdana.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://graphics/repairables/TvBroken.png" type="Texture" id=2]
 [ext_resource path="res://graphics/Arrow.png" type="Texture" id=3]
-[ext_resource path="res://graphics/bg.png" type="Texture" id=4]
+[ext_resource path="res://graphics/StoreFront.png" type="Texture" id=4]
 [ext_resource path="res://scripts/StoreFront.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
@@ -16,7 +16,7 @@ script = ExtResource( 5 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="tv_broken" type="Sprite" parent="Bg"]
+[node name="TvBroken" type="Sprite" parent="Bg"]
 position = Vector2( 309.729, 313.186 )
 texture = ExtResource( 2 )
 __meta__ = {

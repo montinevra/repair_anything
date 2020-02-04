@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/repairedness.png-3a8440a3d60246e3d4655ded9843e102.stex"
+path="res://.import/Repairedness.png-c2bcb292e98d2f811b4334507f817fda.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/repairedness.png"
-dest_files=[ "res://.import/repairedness.png-3a8440a3d60246e3d4655ded9843e102.stex" ]
+source_file="res://graphics/Repairedness.png"
+dest_files=[ "res://.import/Repairedness.png-c2bcb292e98d2f811b4334507f817fda.stex" ]
 
 [params]
 

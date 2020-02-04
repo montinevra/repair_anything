@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Wrench.png-26cd21c508ff0caffdfa82f349db9a9d.stex"
+path="res://.import/Knife.png-e7fd7c5f13799ae73b54038476dc4e29.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/Wrench.png"
-dest_files=[ "res://.import/Wrench.png-26cd21c508ff0caffdfa82f349db9a9d.stex" ]
+source_file="res://graphics/tools/Knife.png"
+dest_files=[ "res://.import/Knife.png-e7fd7c5f13799ae73b54038476dc4e29.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/store_back_bg.png-2f62de7065287e87f2ec8e214a7e7631.stex"
+path="res://.import/Wrench.png-a85393ff74d50de9930bf54c02dc5135.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/store_back_bg.png"
-dest_files=[ "res://.import/store_back_bg.png-2f62de7065287e87f2ec8e214a7e7631.stex" ]
+source_file="res://graphics/tools/Wrench.png"
+dest_files=[ "res://.import/Wrench.png-a85393ff74d50de9930bf54c02dc5135.stex" ]
 
 [params]
 

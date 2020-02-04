@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Hammer.png-4a1434fe48e30c86193e77f4cbd024be.stex"
+path="res://.import/StoreBack.png-a8770aaa1d74f3f4b183a3cb0f80ef34.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/Hammer.png"
-dest_files=[ "res://.import/Hammer.png-4a1434fe48e30c86193e77f4cbd024be.stex" ]
+source_file="res://graphics/StoreBack.png"
+dest_files=[ "res://.import/StoreBack.png-a8770aaa1d74f3f4b183a3cb0f80ef34.stex" ]
 
 [params]
 
