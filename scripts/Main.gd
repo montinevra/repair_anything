@@ -19,23 +19,24 @@ func _ready():
 #		print(m_repairables[i])
 #	_pick_random_repairable()
 	m_store_back_inst.connect("sig_go_front", self, "_go_front")
-	m_store_front_inst.connect("sig_go_back", self, "_go_back")
+	m_store_front_inst.connect("sig_job_accepted", self, "_go_back")
 
 
 func _process(t_delta):
 	match m_room:
-		STORE_FRONT:
-			if Input.is_action_just_pressed("ui_accept"):
-				m_room = STORE_BACK
-#				print("accepted")
-				m_store_back_inst = M_STORE_BACK.instance()
-				m_player = m_store_back_inst.get_node("Player")
-				m_player.connect("sig_shot_fired", self, "_on_shot_fired")
-				add_child(m_store_back_inst)
+#		STORE_FRONT:
+#			if Input.is_action_just_pressed("ui_accept"):
+#				m_room = STORE_BACK
+##				print("accepted")
+#				m_store_back_inst = M_STORE_BACK.instance()
+#				m_player = m_store_back_inst.get_node("Player")
+#				m_player.connect("sig_shot_fired", self, "_on_shot_fired")
+#				add_child(m_store_back_inst)
 		STORE_BACK:
 			if !m_store_back_inst.is_repairing():
 				m_store_back_inst.queue_free()
 				m_room = STORE_FRONT
+				m_store_front_inst.connect("sig_job_accepted", self, "_go_back")
 	pass
 
 
@@ -56,7 +57,10 @@ func _go_back():
 	m_room = STORE_BACK
 #	print("accepted")
 	m_store_back_inst = M_STORE_BACK.instance()
+	m_player = m_store_back_inst.get_node("Player")
 	add_child(m_store_back_inst)
+	m_player.connect("sig_shot_fired", self, "_on_shot_fired")
+	m_store_front_inst.disconnect("sig_job_accepted", self, "_go_back")
 
 
 func _go_front():
