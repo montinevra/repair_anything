@@ -17,7 +17,7 @@ texture = ExtResource( 4 )
 centered = false
 
 [node name="TvBroken" type="Sprite" parent="Bg"]
-position = Vector2( 309.729, 313.186 )
+position = Vector2( 310, 313 )
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true

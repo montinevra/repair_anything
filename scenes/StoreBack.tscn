@@ -25,7 +25,7 @@ __meta__ = {
 [node name="UI" type="Node" parent="."]
 
 [node name="Repairedness" type="Sprite" parent="UI"]
-position = Vector2( 174.469, 3.96096 )
+position = Vector2( 174, 4 )
 texture = ExtResource( 2 )
 centered = false
 __meta__ = {
@@ -61,7 +61,7 @@ polygon = PoolVector2Array( 97.6325, -18.111, 94.9251, 12.574, -87.38, 12.574, -
 
 [node name="DialogPopup" type="Sprite" parent="UI"]
 visible = false
-position = Vector2( 496.269, 298.62 )
+position = Vector2( 496, 299 )
 texture = ExtResource( 8 )
 __meta__ = {
 "_edit_lock_": true
@@ -85,7 +85,7 @@ one_shot = true
 
 [node name="Continue" type="Node2D" parent="UI/DialogPopup"]
 visible = false
-position = Vector2( 27.8357, 57.7161 )
+position = Vector2( 28, 58 )
 
 [node name="Graphic" type="Sprite" parent="UI/DialogPopup/Continue"]
 texture = ExtResource( 5 )
@@ -114,10 +114,7 @@ __meta__ = {
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Floor"]
 position = Vector2( 3.09082, 0 )
-polygon = PoolVector2Array( 47.3108, 42.6776, 164.484, 43.8152, 589.669, 58.62, 631.184, 50.4975, 718.727, 51.4, 854.222, 47.8875, 974.254, 54.205, 970.979, 231.607, 952.878, 392.476, 967.289, 563.002, 206.158, 566.217, 40.7624, 577.243, 49.8593, 434.55, 39.7121, 227.235, 56.9804, 74.5304, 55.7019, 4.95597, -1.73999, 3.17651, -3.75519, 604.256, 1018.25, 599.714, 1021.34, 0.0856323, 64.746, -1.07339 )
-__meta__ = {
-"_edit_lock_": true
-}
+polygon = PoolVector2Array( 47.3108, 42.6776, 164.484, 43.8152, 589.669, 58.62, 631.184, 50.4975, 718.727, 51.4, 854.222, 47.8875, 974.254, 54.205, 970.979, 231.607, 952.878, 392.476, 967.289, 563.002, 206.158, 566.217, 40.7624, 577.243, 49.8593, 434.55, 39.7121, 227.235, 56.9804, 74.5304, 47.0393, 55.8293, 48.4733, 29.6598, -1.73999, 3.17651, -3.75519, 604.256, 1018.25, 599.714, 1021.34, 0.0856323, 64.746, -1.07339 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
 position = Vector2( 448.192, 157.037 )
