@@ -3,6 +3,7 @@ extends Node2D
 enum {STORE_FRONT, STORE_BACK}
 const M_STORE_BACK = preload("res://scenes/StoreBack.tscn")
 var m_store_back_inst = M_STORE_BACK.instance()
+var m_player
 var m_room = STORE_FRONT
 var m_repairables = []
 var m_score = 0
@@ -28,6 +29,8 @@ func _process(t_delta):
 				m_room = STORE_BACK
 #				print("accepted")
 				m_store_back_inst = M_STORE_BACK.instance()
+				m_player = m_store_back_inst.get_node("Player")
+				m_player.connect("sig_shot_fired", self, "_on_shot_fired")
 				add_child(m_store_back_inst)
 		STORE_BACK:
 			if !m_store_back_inst.is_repairing():
@@ -59,6 +62,10 @@ func _go_back():
 func _go_front():
 	m_store_back_inst.queue_free()
 	m_room = STORE_FRONT
+
+
+func _on_shot_fired(t_bullet):
+	t_bullet.connect("sig_hit_enemy", self, "add_score", [1])
 
 
 func _list_files_in_directory(path):

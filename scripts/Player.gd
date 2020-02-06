@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+signal sig_shot_fired
 enum {TOOL_SELECT, REPAIRING, REPAIRED, BORKED, FINISHED}
 const BULLET = preload("res://scenes/Bullet.tscn")
 const RELOAD_TIME = 0.1
@@ -41,9 +42,9 @@ func set_finished():
 
 func _get_direction():
 	var velocity = Vector2(0, 0)
+	
 	velocity.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	velocity.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-
 	if abs(velocity.x) == 1 and abs(velocity.y) == 1:
 		velocity = velocity.normalized()
 	#print(velocity)
@@ -60,5 +61,6 @@ func _shoot(t_angle):
 	bullet.rotation = t_angle
 	get_parent().add_child(bullet)
 	bullet.show()
+	emit_signal("sig_shot_fired", bullet)
 	return move_vector
 

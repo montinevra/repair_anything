@@ -25,7 +25,6 @@ func _ready():
 	m_enemy.connect("sig_borked", self, "_borked")
 	m_is_repairing = true
 #	m_enemy.get_node("Sprite")
-	pass # Replace with function body.
 
 
 func _process(delta):
