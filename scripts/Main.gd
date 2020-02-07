@@ -42,7 +42,7 @@ func _process(t_delta):
 				m_room = STORE_FRONT
 #				m_store_front_inst.connect("sig_job_accepted", self, "_go_back")
 				add_child(m_inst_store_front)
-				
+
 
 func _set_score(t_score):
 	m_score = t_score

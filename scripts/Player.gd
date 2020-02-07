@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal sig_shot_fired
 signal sig_hit_enemy
+signal sig_finished
 enum {TOOL_SELECT, REPAIRING, REPAIRED, BORKED, FINISHED}
 const BULLET = preload("res://scenes/Bullet.tscn")
 const RELOAD_TIME = 0.1
@@ -35,6 +36,7 @@ func _process(delta):
 
 func set_finished():
 	m_state = FINISHED
+	emit_signal("sig_finished")
 
 
 func _get_direction():
@@ -55,6 +57,7 @@ func _shoot(t_angle):
 	bullet.m_move_vec = move_vector
 	bullet.position = position + move_vector * 100
 	bullet.rotation = t_angle
+	connect("sig_finished", bullet, "set_finished")
 	get_parent().add_child(bullet)
 	bullet.show()
 	emit_signal("sig_shot_fired", bullet)
