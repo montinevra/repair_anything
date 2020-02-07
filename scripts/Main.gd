@@ -1,7 +1,9 @@
 extends Node2D
 
 enum {STORE_FRONT, STORE_BACK}
+const M_SCN_STORE_FRONT = preload("res://scenes/StoreFront.tscn")
 const M_STORE_BACK = preload("res://scenes/StoreBack.tscn")
+var m_inst_store_front = M_SCN_STORE_FRONT.instance()
 var m_store_back_inst = M_STORE_BACK.instance()
 var m_player
 var m_room = STORE_FRONT
@@ -19,26 +21,28 @@ func _ready():
 #		print(m_repairables[i])
 #	_pick_random_repairable()
 	m_store_back_inst.connect("sig_go_front", self, "_go_front")
-	m_store_front_inst.connect("sig_job_accepted", self, "_go_back")
-
+#	m_store_front_inst.connect("sig_job_accepted", self, "_go_back")
+	add_child(m_inst_store_front)
 
 func _process(t_delta):
 	match m_room:
-#		STORE_FRONT:
-#			if Input.is_action_just_pressed("ui_accept"):
-#				m_room = STORE_BACK
-##				print("accepted")
-#				m_store_back_inst = M_STORE_BACK.instance()
-#				m_player = m_store_back_inst.get_node("Player")
-#				m_player.connect("sig_shot_fired", self, "_on_shot_fired")
-#				add_child(m_store_back_inst)
+		STORE_FRONT:
+			if Input.is_action_just_pressed("ui_accept"):
+				m_room = STORE_BACK
+#				print("accepted")
+				m_store_back_inst = M_STORE_BACK.instance()
+				m_player = m_store_back_inst.get_node("Player")
+				m_player.connect("sig_shot_fired", self, "_on_shot_fired")
+				m_player.connect("sig_hit_enemy", self, "add_score", [-2])
+				add_child(m_store_back_inst)
+				remove_child(m_inst_store_front)
 		STORE_BACK:
 			if !m_store_back_inst.is_repairing():
 				m_store_back_inst.queue_free()
 				m_room = STORE_FRONT
-				m_store_front_inst.connect("sig_job_accepted", self, "_go_back")
-	pass
-
+#				m_store_front_inst.connect("sig_job_accepted", self, "_go_back")
+				add_child(m_inst_store_front)
+				
 
 func _set_score(t_score):
 	m_score = t_score
@@ -55,7 +59,6 @@ func _reset_score():
 
 func _go_back():
 	m_room = STORE_BACK
-#	print("accepted")
 	m_store_back_inst = M_STORE_BACK.instance()
 	m_player = m_store_back_inst.get_node("Player")
 	add_child(m_store_back_inst)
