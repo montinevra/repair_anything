@@ -32,7 +32,7 @@ func _process(delta):
 	if m_enemy.is_repaired():
 		pass
 #		m_is_repairing = false
-	if m_state == FINISHED && Input.is_action_just_pressed("ui_accept"):
+	if m_state == FINISHED and Input.is_action_just_pressed("ui_accept"):
 		m_is_repairing = false
 
 

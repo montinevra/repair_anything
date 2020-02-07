@@ -19,19 +19,26 @@ func _process(delta):
 		if velocity.length() > 0:
 			rotation = velocity.angle() + TAU/4
 		move_and_slide(velocity)
-		m_reloading -= delta
-		if Input.is_action_just_pressed("shoot") && m_reloading <= 0:
-			m_reloading = RELOAD_TIME
-			_shoot(rotation)
+		if m_reloading > 0:
+			m_reloading -= delta
+#		if Input.is_action_just_pressed("shoot") and m_reloading <= 0:
+#			m_reloading = RELOAD_TIME
+#			_shoot(rotation)
 		m_invulnerable -= delta
 		for i in get_slide_count():
 			var collision = get_slide_collision(i)
 			if collision:
 				var collider = collision.get_collider()
-				if collider.name == "Enemy" && m_invulnerable <= 0:
+				if collider.name == "Enemy" and m_invulnerable <= 0:
 					collider.add_repairedness(-.1)
 					m_invulnerable = .05
 					emit_signal("sig_hit_enemy")
+
+
+func _input(event):
+	if m_state == REPAIRING and Input.is_action_just_pressed("shoot") and m_reloading <= 0:
+		m_reloading = RELOAD_TIME
+		_shoot(rotation)
 
 
 func set_finished():
