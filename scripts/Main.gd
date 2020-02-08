@@ -10,7 +10,6 @@ var m_room = STORE_FRONT
 var m_repairables = []
 var m_score = 0
 onready var m_score_label = get_node("Score/Label")
-#onready var m_store_front_inst = get_node("StoreFront")
 
 
 func _ready():
@@ -27,20 +26,8 @@ func _ready():
 
 func _process(t_delta):
 	match m_room:
-#		STORE_FRONT:
-#			if Input.is_action_just_pressed("ui_accept"):
-#				m_room = STORE_BACK
-##				print("accepted")
-#				m_inst_store_back = M_SCN_STORE_BACK.instance()
-#				m_player = m_inst_store_back.get_node("Player")
-#				m_player.connect("sig_shot_fired", self, "_on_shot_fired")
-#				m_player.connect("sig_hit_enemy", self, "add_score", [-2])
-#				add_child(m_inst_store_back)
-#				remove_child(m_inst_store_front)
 		STORE_BACK:
 			if !m_inst_store_back.is_repairing():
-				print("goind front")
-#				m_inst_store_back.queue_free()
 				m_room = STORE_FRONT
 				m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
 				add_child(m_inst_store_front)
@@ -61,7 +48,6 @@ func _reset_score():
 
 
 func _go_back():
-	print("going back")
 	m_room = STORE_BACK
 #	m_inst_store_back = M_SCN_STORE_BACK.instance()
 #	m_player = m_inst_store_back.get_node("Player")

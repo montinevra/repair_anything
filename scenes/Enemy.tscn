@@ -2,7 +2,7 @@
 
 [ext_resource path="res://graphics/repairables/TvBroken.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
-[ext_resource path="res://scenes/EnemySprite.gd" type="Script" id=3]
+[ext_resource path="res://scripts/EnemySprite.gd" type="Script" id=3]
 
 [node name="Enemy" type="KinematicBody2D"]
 script = ExtResource( 2 )
