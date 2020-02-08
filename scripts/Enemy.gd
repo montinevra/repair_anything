@@ -6,7 +6,7 @@ signal sig_borked
 signal sig_finished
 enum {ACCELERATE, DECELERATE, CRUISE, CHASE, FIXED, BORKED, FINISHED}
 const M_ACCELERATION = .01
-const M_MAX_REPAIREDNESS = 1
+const M_MAX_REPAIREDNESS = 1	
 const M_FIXED_TEXTURE = preload("res://graphics/repairables/TvRepaired.png")
 const M_SPEED = 1000
 var _m_state = ACCELERATE
@@ -20,9 +20,17 @@ onready var _m_sprite = get_node("EnemySprite")
 
 func _ready():
 	randomize()
-#	_m_last_pos = position
+
+
+func _enter_tree():
+	position = Vector2(450, 155)
+	_m_state = ACCELERATE
+	_m_cruise_time = 0
+	_m_repairedness = 0
+	_update_healthbar()
+	_m_direction = Vector2(0.0, 0.0)
+	_m_is_repaired = false
 	_get_new_target_dir()
-	pass # Replace with function body.
 
 
 func _process(delta):

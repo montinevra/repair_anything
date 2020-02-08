@@ -6,15 +6,23 @@ signal sig_finished
 enum {TOOL_SELECT, REPAIRING, REPAIRED, BORKED, FINISHED}
 const BULLET = preload("res://scenes/Bullet.tscn")
 const RELOAD_TIME = 0.1
-var m_speed = 500
+const M_SPEED = 500
 var m_reloading = 0.0
 var m_invulnerable = .5
 var m_state = REPAIRING
 
 
+func _enter_tree():
+	position = Vector2(450, 475)
+	rotation = 0
+	m_reloading = 0.0
+	m_invulnerable = .5
+	m_state = REPAIRING
+
+
 func _process(delta):
 	if m_state == REPAIRING:
-		var velocity = m_speed * _get_direction()
+		var velocity = M_SPEED * _get_direction()
 		
 		if velocity.length() > 0:
 			rotation = velocity.angle() + TAU/4

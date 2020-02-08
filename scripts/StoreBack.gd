@@ -4,7 +4,7 @@ signal sig_finished
 signal sig_go_front
 enum {REPAIRING, FINISHED}
 var m_is_repairing = true
-var m_parent = get_parent()
+#var m_parent = get_parent()
 var m_state = REPAIRING
 onready var m_enemy = get_node("Enemy")
 onready var m_enemy_sprite = get_node("Enemy/EnemySprite")
@@ -23,8 +23,13 @@ func _ready():
 	m_enemy.connect("sig_update_healthbar", self, "_update_healthbar")
 	m_enemy.connect("sig_fixed", self, "_fixed")
 	m_enemy.connect("sig_borked", self, "_borked")
+
+
+func _enter_tree():
+	m_state = REPAIRING
 	m_is_repairing = true
-#	m_enemy.get_node("Sprite")
+#	m_dialog.hide()
+#	m_dialog_continue.hide()
 
 
 func _process(delta):

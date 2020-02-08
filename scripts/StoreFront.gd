@@ -1,10 +1,10 @@
 extends Node
 
 signal sig_job_accepted
-var m_score = 0
+#var m_score = 0
 onready var m_dialog_customer = get_node("DialogCustomer")
 onready var m_dialog_player = get_node("DialogPlayer")
-onready var m_repairable_sprite = get_node("Bg/tv_broken")
+onready var m_repairable_sprite = get_node("Bg/TvBroken")
 #onready var m_score_label = get_node("Bg/Score/ScoreLabel")
 
 

@@ -5,7 +5,7 @@ const M_SCN_STORE_FRONT = preload("res://scenes/StoreFront.tscn")
 const M_SCN_STORE_BACK = preload("res://scenes/StoreBack.tscn")
 var m_inst_store_front = M_SCN_STORE_FRONT.instance()
 var m_inst_store_back = M_SCN_STORE_BACK.instance()
-var m_player
+var m_player = m_inst_store_back.get_node("Player")
 var m_room = STORE_FRONT
 var m_repairables = []
 var m_score = 0
@@ -24,6 +24,7 @@ func _ready():
 	m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
 	add_child(m_inst_store_front)
 
+
 func _process(t_delta):
 	match m_room:
 #		STORE_FRONT:
@@ -38,11 +39,12 @@ func _process(t_delta):
 #				remove_child(m_inst_store_front)
 		STORE_BACK:
 			if !m_inst_store_back.is_repairing():
-				m_inst_store_back.queue_free()
+				print("goind front")
+#				m_inst_store_back.queue_free()
 				m_room = STORE_FRONT
 				m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
 				add_child(m_inst_store_front)
-#				remove_child(m_inst_store_back)
+				remove_child(m_inst_store_back)
 
 
 func _set_score(t_score):
@@ -59,9 +61,10 @@ func _reset_score():
 
 
 func _go_back():
+	print("going back")
 	m_room = STORE_BACK
-	m_inst_store_back = M_SCN_STORE_BACK.instance()
-	m_player = m_inst_store_back.get_node("Player")
+#	m_inst_store_back = M_SCN_STORE_BACK.instance()
+#	m_player = m_inst_store_back.get_node("Player")
 	m_player.connect("sig_hit_enemy", self, "add_score", [-2])
 	add_child(m_inst_store_back)
 	m_player.connect("sig_shot_fired", self, "_on_shot_fired")
@@ -70,9 +73,10 @@ func _go_back():
 
 
 func _go_front():
-	m_inst_store_back.queue_free()
-	m_room = STORE_FRONT
-
+#	m_inst_store_back.queue_free()
+#	m_room = STORE_FRONT
+	pass
+	
 
 func _on_shot_fired(t_bullet):
 	t_bullet.connect("sig_hit_enemy", self, "add_score", [1])
