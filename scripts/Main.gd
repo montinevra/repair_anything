@@ -49,8 +49,6 @@ func _reset_score():
 
 func _go_back():
 	m_room = STORE_BACK
-#	m_inst_store_back = M_SCN_STORE_BACK.instance()
-#	m_player = m_inst_store_back.get_node("Player")
 	m_player.connect("sig_hit_enemy", self, "add_score", [-2])
 	add_child(m_inst_store_back)
 	m_player.connect("sig_shot_fired", self, "_on_shot_fired")
