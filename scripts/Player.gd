@@ -70,7 +70,7 @@ func _shoot(t_angle):
 	var move_vector = Vector2(cos(move_direction), sin(move_direction))
 	
 	bullet.m_move_vec = move_vector
-	bullet.position = position + move_vector * 100
+	bullet.position = position + move_vector * 50
 	bullet.rotation = t_angle
 	connect("sig_finished", bullet, "set_finished")
 	get_parent().add_child(bullet)
