@@ -39,6 +39,7 @@ func _process(delta):
 #		m_is_repairing = false
 	if m_state == FINISHED and Input.is_action_just_pressed("ui_accept"):
 		m_is_repairing = false
+		go_front()
 
 
 func _update_healthbar(t_health):

@@ -21,17 +21,13 @@ func _ready():
 #	_pick_random_repairable()
 	m_inst_store_back.connect("sig_go_front", self, "_go_front")
 	m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
+	m_player.connect("sig_shot_fired", self, "_on_shot_fired")
+	m_player.connect("sig_hit_enemy", self, "add_score", [-2])
 	add_child(m_inst_store_front)
 
 
 func _process(t_delta):
-	match m_room:
-		STORE_BACK:
-			if !m_inst_store_back.is_repairing():
-				m_room = STORE_FRONT
-				m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
-				add_child(m_inst_store_front)
-				remove_child(m_inst_store_back)
+	pass
 
 
 func _set_score(t_score):
@@ -49,16 +45,16 @@ func _reset_score():
 
 func _go_back():
 	m_room = STORE_BACK
-	m_player.connect("sig_hit_enemy", self, "add_score", [-2])
 	add_child(m_inst_store_back)
-	m_player.connect("sig_shot_fired", self, "_on_shot_fired")
 	m_inst_store_front.disconnect("sig_job_accepted", self, "_go_back")
 	remove_child(m_inst_store_front)
 
 
 func _go_front():
-#	m_inst_store_back.queue_free()
-#	m_room = STORE_FRONT
+	m_room = STORE_FRONT
+	m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
+	add_child(m_inst_store_front)
+	remove_child(m_inst_store_back)
 	pass
 	
 
