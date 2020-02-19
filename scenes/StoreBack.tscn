@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://graphics/StoreBack.png" type="Texture" id=1]
 [ext_resource path="res://graphics/Repairedness.png" type="Texture" id=2]
@@ -9,8 +9,6 @@
 [ext_resource path="res://fonts/verdana.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://graphics/DialogPopup.png" type="Texture" id=8]
 [ext_resource path="res://scripts/StoreBack.gd" type="Script" id=9]
-[ext_resource path="res://scripts/DialogPopup.gd" type="Script" id=10]
-[ext_resource path="res://scripts/Continue.gd" type="Script" id=11]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -65,7 +63,6 @@ polygon = PoolVector2Array( 97.6325, -18.111, 94.9251, 12.574, -87.38, 12.574, -
 visible = false
 position = Vector2( 496, 299 )
 texture = ExtResource( 8 )
-script = ExtResource( 10 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -89,7 +86,6 @@ one_shot = true
 [node name="Continue" type="Node2D" parent="UI/DialogPopup"]
 visible = false
 position = Vector2( 28, 58 )
-script = ExtResource( 11 )
 
 [node name="Graphic" type="Sprite" parent="UI/DialogPopup/Continue"]
 texture = ExtResource( 5 )

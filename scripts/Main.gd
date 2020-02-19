@@ -55,8 +55,7 @@ func _go_front():
 	m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
 	add_child(m_inst_store_front)
 	remove_child(m_inst_store_back)
-	pass
-	
+
 
 func _on_shot_fired(t_bullet):
 	t_bullet.connect("sig_hit_enemy", self, "add_score", [1])

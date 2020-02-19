@@ -23,6 +23,8 @@ func _ready():
 	m_enemy.connect("sig_update_healthbar", self, "_update_healthbar")
 	m_enemy.connect("sig_fixed", self, "_fixed")
 	m_enemy.connect("sig_borked", self, "_borked")
+#	remove_child(m_dialog)
+#	remove_child(m_dialog_continue)
 
 
 func _enter_tree():
@@ -48,6 +50,8 @@ func _update_healthbar(t_health):
 
 
 func go_front():
+	m_dialog.hide()
+	m_dialog_continue.hide()
 	emit_signal("sig_go_front")
 
 
