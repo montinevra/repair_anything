@@ -60,7 +60,6 @@ color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( 97.6325, -18.111, 94.9251, 12.574, -87.38, 12.574, -87.38, -13.5985 )
 
 [node name="DialogPopup" type="Sprite" parent="UI"]
-visible = false
 position = Vector2( 496, 299 )
 texture = ExtResource( 8 )
 __meta__ = {
@@ -84,7 +83,6 @@ __meta__ = {
 one_shot = true
 
 [node name="Continue" type="Node2D" parent="UI/DialogPopup"]
-visible = false
 position = Vector2( 28, 58 )
 
 [node name="Graphic" type="Sprite" parent="UI/DialogPopup/Continue"]
