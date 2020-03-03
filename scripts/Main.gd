@@ -1,12 +1,10 @@
 extends Node2D
 
-enum {STORE_FRONT, STORE_BACK}
 const M_SCN_STORE_FRONT = preload("res://scenes/StoreFront.tscn")
 const M_SCN_STORE_BACK = preload("res://scenes/StoreBack.tscn")
 var m_inst_store_front = M_SCN_STORE_FRONT.instance()
 var m_inst_store_back = M_SCN_STORE_BACK.instance()
 var m_player = m_inst_store_back.get_node("Player")
-var m_room = STORE_FRONT
 var m_repairables = []
 var m_score = 0
 onready var m_score_label = get_node("Score/Label")
@@ -44,15 +42,11 @@ func _reset_score():
 
 
 func _go_back():
-	m_room = STORE_BACK
 	add_child(m_inst_store_back)
-	m_inst_store_front.disconnect("sig_job_accepted", self, "_go_back")
 	remove_child(m_inst_store_front)
 
 
 func _go_front():
-	m_room = STORE_FRONT
-	m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
 	add_child(m_inst_store_front)
 	remove_child(m_inst_store_back)
 
