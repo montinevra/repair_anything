@@ -24,8 +24,8 @@ func _ready():
 	m_enemy.connect("sig_fixed", self, "_fixed")
 	m_enemy.connect("sig_borked", self, "_borked")
 	m_ui.remove_child(m_dialog)
-	m_dialog_continue.hide()
-
+	m_dialog.remove_child(m_dialog_continue)
+	m_dialog_continue.connect("sig_pressed_continue", self, "go_front")
 
 func _enter_tree():
 	m_state = REPAIRING
@@ -37,9 +37,9 @@ func _process(delta):
 	if m_enemy.is_repaired():
 		pass
 #		m_is_repairing = false
-	if m_state == FINISHED and Input.is_action_just_pressed("ui_accept"):
-		m_is_repairing = false
-		go_front()
+#	if m_state == FINISHED and Input.is_action_just_pressed("ui_accept"):
+#		m_is_repairing = false
+#		go_front()
 
 
 func _update_healthbar(t_health):
@@ -48,8 +48,9 @@ func _update_healthbar(t_health):
 
 
 func go_front():
+	m_is_repairing = false
 	m_ui.remove_child(m_dialog)
-	m_dialog_continue.hide()
+	m_dialog.remove_child(m_dialog_continue)
 	emit_signal("sig_go_front")
 
 
@@ -58,7 +59,7 @@ func is_repairing():
 
 
 func _on_timer_timeout():
-	m_dialog_continue.show()
+	m_dialog.add_child(m_dialog_continue)
 	m_state = FINISHED
 	
 

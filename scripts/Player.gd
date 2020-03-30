@@ -24,7 +24,7 @@ func _process(delta):
 	if m_state == REPAIRING:
 		var velocity = M_SPEED * _get_direction()
 		
-		if velocity.length() > 0:
+		if not Input.is_action_pressed("strafe") and velocity.length() > 0:
 			rotation = velocity.angle() + TAU/4
 		move_and_slide(velocity)
 		if m_reloading > 0:
