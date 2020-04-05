@@ -13,10 +13,11 @@ onready var m_score_label = get_node("Score/Label")
 func _ready():
 	randomize()
 	_reset_score()
-	m_repairables = _list_files_in_directory("res://graphics/repairables/")
-#	for i in len(m_repairables):
-#		print(m_repairables[i])
-#	_pick_random_repairable()
+#	m_repairables = _list_files_in_directory("res://graphics/repairables/")
+	m_repairables = _list_files_in_directory("res://scenes/enemies/")
+	for i in len(m_repairables):
+		print(m_repairables[i])
+	_pick_random_repairable()
 	m_inst_store_back.connect("sig_go_front", self, "_go_front")
 	m_inst_store_front.connect("sig_job_accepted", self, "_go_back")
 	m_player.connect("sig_shot_fired", self, "_on_shot_fired")
@@ -43,6 +44,7 @@ func _reset_score():
 
 func _go_back():
 	add_child(m_inst_store_back)
+	m_inst_store_back.set_enemy_textures(preload("res://graphics/repairables/TvBroken.png"), preload("res://graphics/repairables/TvRepaired.png"))
 	remove_child(m_inst_store_front)
 
 
@@ -72,10 +74,11 @@ func _list_files_in_directory(path):
 
 
 func _pick_random_repairable():
-#	print(len(m_repairables))
-	var i = (randi() % (len(m_repairables) / 2))
-	i *= 2
-	print((m_repairables[0]))
-	m_inst_store_front.set_repairable_texture(m_repairables[i])
+	print(m_repairables)
+	var i = (randi() % (len(m_repairables)))
+	
+#	i *= 2
+	print((m_repairables[i]))
+#	m_inst_store_front.set_repairable_texture(m_repairables[i])
 #	print(m_repairables[i])
 #	print(m_repairables[i + 1])

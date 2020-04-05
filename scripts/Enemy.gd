@@ -6,16 +6,28 @@ signal sig_borked
 signal sig_finished
 enum {ACCELERATE, DECELERATE, CRUISE, CHASE, FIXED, BORKED, FINISHED}
 const M_ACCELERATION = .01
-const M_MAX_REPAIREDNESS = 1	
-const M_FIXED_TEXTURE = preload("res://graphics/repairables/TvRepaired.png")
+const M_MAX_REPAIREDNESS = 1
+#const M_FIXED_TEXTURE = preload("res://graphics/repairables/TvRepaired.png")
 const M_SPEED = 1000
+var m_broken_texture
+var m_repaired_texture
 var _m_state = ACCELERATE
 var _m_cruise_time = 0
 var _m_repairedness = 0
 var _m_direction = Vector2(0.0, 0.0)
 var _m_target_dir = Vector2(0.0, 0.0)
 var _m_is_repaired = false
-onready var _m_sprite = get_node("EnemySprite")
+#onready var m_sprite = get_node("EnemySprite")
+onready var _m_broken_sprite = get_node("BrokenSprite")
+onready var _m_repaired_sprite = get_node("RepairedSprite")
+
+
+func set_broken_texture(t_texture):
+	m_broken_texture = t_texture
+
+
+func set_repaired_texture(t_texture):
+	m_repaired_texture = t_texture
 
 
 func _ready():
@@ -23,6 +35,7 @@ func _ready():
 
 
 func _enter_tree():
+#	m_sprite.set_texture(m_repaired_texture)
 	position = Vector2(450, 155)
 	_m_state = ACCELERATE
 	_m_cruise_time = 0
@@ -56,6 +69,8 @@ func _process(delta):
 	#	_m_last_pos = position
 		if get_repairedness() > get_max_repairedness():
 			_m_state = FIXED
+			_m_broken_sprite.hide()
+			_m_repaired_sprite.show()
 		if get_repairedness() < -get_max_repairedness():
 			_m_state = BORKED
 		match _m_state:
@@ -91,7 +106,7 @@ func _process(delta):
 					emit_signal("sig_fixed")
 					emit_signal("sig_finished")
 					_m_state = FINISHED
-					_m_sprite.set_texture(M_FIXED_TEXTURE)
+#					m_sprite.set_texture(m_repaired_texture)
 			BORKED:
 				if  _m_direction.length() >= 0.01:
 					_m_direction *= .5

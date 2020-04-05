@@ -16,8 +16,16 @@ onready var m_dialog_timer = get_node("UI/DialogPopup/Timer")
 onready var m_dialog_continue = get_node("UI/DialogPopup/Continue")
 
 
+func set_enemy_textures(t_broken, t_repaired):
+#	m_enemy.set_broken_texture(t_broken)
+#	m_enemy.m_sprite.set_texture(t_broken)
+#	m_enemy.set_repaired_texture(t_repaired)
+	pass
+
 func _ready():
-	m_enemy_sprite.set_texture(preload("res://graphics/repairables/TvBroken.png"))
+#	m_enemy.set_broken_texture(preload("res://graphics/repairables/TvBroken.png"))
+#	m_enemy.set_repaired_texture(preload("res://graphics/repairables/TvRepaired.png"))
+#	m_enemy_sprite.set_texture(preload("res://graphics/repairables/TvBroken.png"))
 	m_dialog_timer.set_wait_time(2)
 	m_dialog_timer.connect("timeout", self, "_on_timer_timeout") 
 	m_enemy.connect("sig_update_healthbar", self, "_update_healthbar")
@@ -26,6 +34,7 @@ func _ready():
 	m_ui.remove_child(m_dialog)
 	m_dialog.remove_child(m_dialog_continue)
 	m_dialog_continue.connect("sig_pressed_continue", self, "go_front")
+
 
 func _enter_tree():
 	m_state = REPAIRING
