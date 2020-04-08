@@ -9,8 +9,8 @@ const M_ACCELERATION = .01
 const M_MAX_REPAIREDNESS = 1
 #const M_FIXED_TEXTURE = preload("res://graphics/repairables/TvRepaired.png")
 const M_SPEED = 1000
-var m_broken_texture
-var m_repaired_texture
+#var m_broken_texture
+#var m_repaired_texture
 var _m_state = ACCELERATE
 var _m_cruise_time = 0
 var _m_repairedness = 0
@@ -21,14 +21,18 @@ var _m_is_repaired = false
 onready var _m_broken_sprite = get_node("BrokenSprite")
 onready var _m_repaired_sprite = get_node("RepairedSprite")
 
+#
+#func set_broken_texture(t_texture):
+#	m_broken_texture = t_texture
+#
+#
+#func set_repaired_texture(t_texture):
+#	m_repaired_texture = t_texture
 
-func set_broken_texture(t_texture):
-	m_broken_texture = t_texture
 
-
-func set_repaired_texture(t_texture):
-	m_repaired_texture = t_texture
-
+func reset_sprites():
+	_m_broken_sprite.show()
+	_m_repaired_sprite.hide()
 
 func _ready():
 	randomize()

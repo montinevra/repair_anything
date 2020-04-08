@@ -25,9 +25,6 @@ func connect_enemy_sigs():
 
 
 func _ready():
-#	m_enemy.set_broken_texture(preload("res://graphics/repairables/TvBroken.png"))
-#	m_enemy.set_repaired_texture(preload("res://graphics/repairables/TvRepaired.png"))
-#	m_enemy_sprite.set_texture(preload("res://graphics/repairables/TvBroken.png"))
 	m_dialog_timer.set_wait_time(2)
 	m_dialog_timer.connect("timeout", self, "_on_timer_timeout") 
 	m_ui.remove_child(m_dialog)
